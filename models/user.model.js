@@ -9,25 +9,29 @@ var userSchema = new mongoose.Schema({
     },
     lastName:{
         type:String,
-        // required:[false, 'Last Name must be required']
+        // required:[false, 'Last Name must be required'],
     },
     email:{
         type:String,
         required:[true, 'email  must be required'],
-        unique:[true, 'please use unique email id']
+        unique:[true, 'please use unique email id'],
     },
     mobile:{
         type:String,
-        // required:[true, 'mobile must be required'],
-        unique:[true, 'please use unique mobile number']
+        // required:[false, 'mobile must be required'],
+        unique:[true, 'please use unique mobile number'],
     },
     password:{
         type:String,
-        required:[true, 'password  must be required']
+        required:[true, 'password  must be required'],
     },
     role: {
         type: String,
-        default: 'user'
+        default: 'user',
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false,
     },
     cart: {
         type: Array,
@@ -35,15 +39,20 @@ var userSchema = new mongoose.Schema({
     },
     address: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Address"
+        ref: "Address",
     }],
     wishlist: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product"
+        ref: "Product",
     }],
 }, {
-    timestamps:true
+    timestamps: true
 });
+
+
+// , {
+//     timestamps:true
+// }
 
 userSchema.pre('save', async function(nex){
     var salt = await bcrypt.genSaltSync(10);
