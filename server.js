@@ -1,12 +1,10 @@
 const dotenv = require('dotenv');
-const morgan = require('morgan');
-const connect = require('./database/conn')
+dotenv.config({path: './config/.env'});
+
+const connect = require('./database/conn');
 const app = require('./app');
 
-dotenv.config({path: './config/.env'});
 const { PORT, IP } = process.env;
-
-app.use(morgan('short'));
 
 connect().then(()=>{
     try{
