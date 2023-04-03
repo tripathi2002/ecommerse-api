@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const authRouter = require('./routes/auth.route');
 const productRouter = require('./routes/product.route');
+const blogRouter = require('./routes/blog.route');
 const { errorHandler, notFound } = require('./middlewares/errorHandler');
 
 const app = express();
@@ -20,8 +21,9 @@ app.get('/', (req,res)=>{
 
 app.use('/api/user', authRouter);
 app.use('/api/product', productRouter);
+app.use('/api/blog', blogRouter);
 
 app.use(notFound);
-app.use(errorHandler)
+app.use(errorHandler);
 
 module.exports = app;
