@@ -1,8 +1,10 @@
 const Blog = require('../models/blog.model');
 const User = require('../models/user.model');
 
-const expressAsyncHandler = require('express-async-handler');
+const asyncHandler = require('express-async-handler');
 const { validateMongodbId } = require('../utils/validateMongodbId');
+const { cloudinaryUploadImg } = require('../utils/cloudinary');
+const fs = require('fs');
 
 /** POST: {{base_url}}/blog 
  * body: {
@@ -11,7 +13,7 @@ const { validateMongodbId } = require('../utils/validateMongodbId');
     "description": "My blog description",
 }
 */
-const createBlog = expressAsyncHandler(async (req, res)=>{
+const createBlog = asyncHandler(async (req, res)=>{
     try{
         const newBlog = await Blog.create(req.body);
         res.json( newBlog );
@@ -26,7 +28,7 @@ const createBlog = expressAsyncHandler(async (req, res)=>{
     "description": "My blog updated description"
 }
 */
-const updateBlog = expressAsyncHandler( async (req, res)=>{
+const updateBlog = asyncHandler( async (req, res)=>{
     const { id } = req.params;
     validateMongodbId(id);
     try{
@@ -40,7 +42,7 @@ const updateBlog = expressAsyncHandler( async (req, res)=>{
 });
 
 /** GET: {{base_url}}/blog/:id */
-const getBlog = expressAsyncHandler( async (req, res)=>{
+const getBlog = asyncHandler( async (req, res)=>{
     const { id } = req.params;
     validateMongodbId(id);
     try{
@@ -58,7 +60,7 @@ const getBlog = expressAsyncHandler( async (req, res)=>{
 });
 
 /** GET: {{base_url}}/blog/:id */
-const getAllBlog = expressAsyncHandler( async (req, res)=>{
+const getAllBlog = asyncHandler( async (req, res)=>{
     try{ 
         const getBlogs = await Blog.find();
         res.json({
@@ -71,7 +73,7 @@ const getAllBlog = expressAsyncHandler( async (req, res)=>{
 });
 
 /** DELETE: {{base_url}}/blog/:id  */
-const deleteBlog = expressAsyncHandler( async (req, res)=>{
+const deleteBlog = asyncHandler( async (req, res)=>{
     const { id } = req.params;
     validateMongodbId(id);
     try{
@@ -82,7 +84,7 @@ const deleteBlog = expressAsyncHandler( async (req, res)=>{
     }
 });
 
-const likeBlog = expressAsyncHandler( async( req, res)=>{
+const likeBlog = asyncHandler( async( req, res)=>{
     const { blogId } = req.body;
     validateMongodbId(blogId);
     try{
@@ -133,7 +135,7 @@ const likeBlog = expressAsyncHandler( async( req, res)=>{
     }
 });
 
-const dislikeBlog = expressAsyncHandler( async (req, res)=>{
+const dislikeBlog = asyncHandler( async (req, res)=>{
     const { blogId } = req.body;
     validateMongodbId(blogId);
     try{
@@ -180,9 +182,35 @@ const dislikeBlog = expressAsyncHandler( async (req, res)=>{
     }
 });
 
+// after upload images file
+const uploadImages = asyncHandler( async (req, res)=>{
+    const { id } = req.params;
+    validateMongodbId(id);
+    try{
+        const uploader = (path) => cloudinaryUploadImg(path, 'images');
+        let urls = [];
+        const files = req.files;
+        for(let file of files){
+            const { path } = file;
+            const newpath = await uploader(path);
+            urls.push(newpath);
+            fs.unlinkSync(path);
+        }
+        const findBlog = await Blog.findByIdAndUpdate( id, {
+            images: urls.map(file => file),
+        }, {
+            new: true,
+        });
+        res.json(findBlog);
+    }catch(err){
+        throw new Error(err);
+    }
+});
+
 module.exports = {
     createBlog, updateBlog,
     getBlog, getAllBlog,
     deleteBlog,
     likeBlog, dislikeBlog,
+    uploadImages, 
 }

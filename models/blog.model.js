@@ -37,15 +37,11 @@ var blogSchema = new mongoose.Schema({
             ref: "User",
         },
     ],
-    image: {
-        type: String, 
-        default: 
-            "https://www.bing.com/images/search?view=detailV2&ccid=X%2bBqeuY%2b&id=DEAA4E845F9986B35448FFFB1CF6203107FFB628&thid=OIP.X-BqeuY-fo0fSF8uuqT85AHaEP&mediaurl=https%3a%2f%2fwww.onblastblog.com%2fwp-content%2fuploads%2f2017%2f08%2fblogger-logo.jpg&exph=1043&expw=1822&q=logo+for+blog&simid=608021847515016222&FORM=IRPRST&ck=640AD63C69B91EAFF940B6D6B8347430&selectedIndex=0",
-    },
     author: {
         type: String,
         default: 'Admin',
     },
+    images: [],
 }, {
     toJSON: {
         virtuals: true,

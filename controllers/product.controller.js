@@ -4,6 +4,9 @@ const slugify = require('slugify');
 
 const Product = require('../models/product.model');
 const User = require('../models/user.model');
+const { validateMongodbId } = require('../utils/validateMongodbId');
+const { cloudinaryUploadImg } = require('../utils/cloudinary');
+const fs = require('fs');
 
 // Create Product
 /** POST: http://127.0.0.1:1000/api/product/
@@ -216,10 +219,35 @@ const rating = asyncHandler(async (req,res)=>{
 
 });
 
+// after upload images file
+const uploadImages = asyncHandler( async (req,res)=> {
+    const { id } = req.params;
+    validateMongodbId(id);
+    try {
+        const uploader = (path) => cloudinaryUploadImg(path, "images");
+        let urls = []; 
+        const files = req.files;
+        for(let file of files) {
+            const { path } = file; 
+            const newpath = await uploader(path);
+            urls.push(newpath);
+            fs.unlinkSync(path);
+        }
+        const findProduct = await Product.findByIdAndUpdate( id, {
+            images: urls.map(file => file )
+        }, {
+            new: true,
+        });
+        res.json(findProduct);
+    }catch(err){
+        throw new Error(err);
+    }
+});
 
 module.exports = {
     createProduct,
     getaProduct, getAllProduct,
     updateProduct, deleteProduct,
-    addToWishlist, rating, 
+    addToWishlist, rating,
+    uploadImages, 
 }
