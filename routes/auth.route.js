@@ -3,7 +3,9 @@ const { createUser, loginUser,
     deleteUser, deleteAllUser, 
     updateUser, logout,
     blockUser, unblockUser, 
-    handleRefreshToken } = require('../controllers/user.controller');
+    handleRefreshToken, 
+    getWishlist,
+    saveAddress} = require('../controllers/user.controller');
 const { authMiddleware, isAdmin } = require('../middlewares/auth.middleware');
 const { updatePassword, forgotPasswordToken, resetPassword } = require('../controllers/password.controller');
 const { sendEmail } = require('../controllers/email.controller');
@@ -18,6 +20,7 @@ router.post('/login', loginUser);
 router.get('/allUser', getAllUser);
 router.get('/refresh', handleRefreshToken);
 router.get('/logout', logout);
+router.get('/wishlist', authMiddleware, getWishlist)
 
 router.get('/:id', authMiddleware, isAdmin, getaUser);
 
@@ -26,6 +29,7 @@ router.delete('/:id', deleteUser);
 
 // router.put('/:id', updateUser)
 router.put('/edit-user', authMiddleware, updateUser);
+router.put('/save-address', authMiddleware, saveAddress);
 router.put('/block-user/:id', authMiddleware, isAdmin, blockUser);
 router.put('/unblock-user/:id', authMiddleware, isAdmin, unblockUser);
 

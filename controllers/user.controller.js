@@ -232,16 +232,47 @@ const unblockUser = asyncHandler(async (req, res)=>{
     }
 });
 
+// get wishlist 
+/** GET: http://127.0.0.1:1000/api/user/wishlist */
+const getWishlist = asyncHandler(async (req,res)=>{
+    const { _id } = req.user;
+    try{
+        const wishlist = await User.findById(_id).populate("wishlist");
+        res.json(wishlist);
+    }catch(err){
+        throw new Error(err);
+    }
+});
+
+// save user Address
+/** PUT: http://127.0.0.1:1000/api/user/save-address
+ * body:{
+    "address":" my address"
+   } 
+*/
+const saveAddress = asyncHandler( async (req,res)=>{
+    const { _id } = req.user;
+    validateMongodbId(_id);
+    try{
+        const updateUser = await User.findByIdAndUpdate( _id, {
+            address: req?.body?.address,
+        }, {
+            new: true,
+        });
+        res.json(updateUser);
+    }catch(err){
+        throw new Error(err);
+    }
+});
+
+
 module.exports = {
-    createUser,
-    loginUser,
-    getAllUser,
-    getaUser,
-    deleteUser,
-    updateUser,
+    createUser, loginUser, logout,
+    getAllUser, getaUser,
+    deleteUser, updateUser,
     deleteAllUser,
-    blockUser,
-    unblockUser,
+    blockUser,unblockUser,
     handleRefreshToken,
-    logout,
+    getWishlist,
+    saveAddress, 
 }
