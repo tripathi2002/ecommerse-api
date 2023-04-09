@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const authRouter = require('./routes/auth.route');
 const productRouter = require('./routes/product.route');
@@ -18,6 +19,7 @@ const { errorHandler, notFound } = require('./middlewares/errorHandler');
 
 const app = express();
 
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
