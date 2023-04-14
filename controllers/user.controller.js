@@ -66,6 +66,43 @@ const loginUser = asyncHandler(async (req,res)=>{
     }
 });
 
+// login a Admin
+/** POST: http://127.0.0.1:1000/api/user/admin-login 
+* body:{
+    "email":"example@123",
+    "password":"admin@123"
+ }
+*/
+const loginAdmin = asyncHandler(async (req,res)=>{
+    const {email, password } = req.body;
+
+    // check if user exists or not 
+    const findUser = await User.findOne({ email });
+
+    if(findUser && (await findUser.isPasswordMatched(password))){
+        const refreshToken = await generateRefreshToken(findUser?.id);
+        const updateuser = await User.findByIdAndUpdate( findUser?.id, {
+            refreshToken: refreshToken, 
+        }, {
+            new: true 
+        });
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 72*60*60*1000,
+        });
+        res.json({
+            _id: findUser?._id,
+            firstName: findUser?.firstName,
+            lastName: findUser?.lastName,
+            email: findUser?.email,
+            mobile: findUser?.mobile,
+            token: generateToken(findUser?._id)
+        });
+    }else{
+        throw new Error("Invalid Credentials");
+    }
+});
+
 // handle refresh token 
 const handleRefreshToken = asyncHandler(async (req, res)=>{
     const cookie = req.cookies;
@@ -156,10 +193,10 @@ const  getaUser = asyncHandler(async (req,res)=>{
 /** GET: http://127.0.0.1:1000/api/user/allUser */
 const getAllUser = asyncHandler(async(req,res)=>{
     try{
-        const Users = await User.find();
+        const users = await User.find();
         res.json({
-            count: Users.length,
-            Users,
+            count: users.length,
+            users,
         });
     }catch(err){
         throw new Error(err);
@@ -267,7 +304,7 @@ const saveAddress = asyncHandler( async (req,res)=>{
 
 
 module.exports = {
-    createUser, loginUser, logout,
+    createUser, loginUser, logout, loginAdmin,
     getAllUser, getaUser,
     deleteUser, updateUser,
     deleteAllUser,

@@ -5,7 +5,8 @@ const { createUser, loginUser,
     blockUser, unblockUser, 
     handleRefreshToken, 
     getWishlist,
-    saveAddress} = require('../controllers/user.controller');
+    saveAddress,
+    loginAdmin} = require('../controllers/user.controller');
 const { authMiddleware, isAdmin } = require('../middlewares/auth.middleware');
 const { updatePassword, forgotPasswordToken, resetPassword } = require('../controllers/password.controller');
 const { sendEmail } = require('../controllers/email.controller');
@@ -15,6 +16,7 @@ const router = require('express').Router();
 // routes the request 
 router.post('/register', createUser);
 router.post('/login', loginUser);
+router.post('/admin-login', loginAdmin);
 
 // router.get('/:id', getaUser);
 router.get('/allUser', getAllUser);

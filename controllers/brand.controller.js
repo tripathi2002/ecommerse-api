@@ -42,8 +42,8 @@ const getBrand = asyncHandler( async(req,res)=>{
 
 const getAllBrand = asyncHandler( async(req,res)=>{
     try{
-        const categories = await Brand.find();
-        res.json({ count: categories.length , categories});
+        const brands = await Brand.find();
+        res.json({ count: brands.length , brands});
     }catch(err){
         throw new Error(err);
     }
