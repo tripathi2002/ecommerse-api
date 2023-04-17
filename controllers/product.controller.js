@@ -70,7 +70,8 @@ const deleteProduct = asyncHandler( async (req, res)=>{
 const getaProduct = asyncHandler(async (req,res)=>{
     const { id } = req.params;
     try{
-        const product = await Product.findById(id);
+        // const product = await Product.findById(id);
+        const product = await Product.findById(id).populate('category brand');
         if(!product) throw new Error("Product not found!");
         res.json({
             product
@@ -124,7 +125,7 @@ const getAllProduct = asyncHandler(async (req, res)=>{
             const productCount = await Product.countDocuments();
             if(skip>=productCount) throw new Error('This Page does not Exists')
         }
-        query = query.skip(skip).limit(limit);
+        query = query.skip(skip).limit(limit).populate('category brand');
 
         const product = await query;
         if(!product) throw new Error('Products not found!');

@@ -21,9 +21,9 @@ var productSchema = new mongoose.Schema({
         required: [true, 'Price is a required field!'],
     },
     category: {
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref:  'Category',
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:  'ProductCategory',
+        // type: String,
         required: true,
     },
     quantity: {
@@ -44,7 +44,9 @@ var productSchema = new mongoose.Schema({
         required: true,
     },
     brand: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:  'Brand',
+        // type: String,
         // enum: ['Apple', 'Samsung', 'Lenovo'],
         required: true,
     },
