@@ -67,7 +67,7 @@ const loginUser = asyncHandler(async (req,res)=>{
 });
 
 // login a Admin
-/** POST: http://127.0.0.1:1000/api/user/admin-login 
+/** POST: http://127.0.0.1:1000/api/user/admin-login
 * body:{
     "email":"example@123",
     "password":"admin@123"
@@ -76,15 +76,16 @@ const loginUser = asyncHandler(async (req,res)=>{
 const loginAdmin = asyncHandler(async (req,res)=>{
     const {email, password } = req.body;
 
-    // check if user exists or not 
+    // check if user exists or not
     const findUser = await User.findOne({ email });
+    if(findUser.role !== 'admin') throw new Error('you are not admin');
 
     if(findUser && (await findUser.isPasswordMatched(password))){
         const refreshToken = await generateRefreshToken(findUser?.id);
         const updateuser = await User.findByIdAndUpdate( findUser?.id, {
-            refreshToken: refreshToken, 
+            refreshToken: refreshToken,
         }, {
-            new: true 
+            new: true
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,

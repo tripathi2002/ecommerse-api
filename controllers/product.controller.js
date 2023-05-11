@@ -220,7 +220,13 @@ const rating = asyncHandler(async (req,res)=>{
 
 });
 
-// after upload images file
+// Upload images file url 
+/** PUT: http://127.0.0.1:1000/api/product/upload/:id
+ * files: {
+ }
+ * body: {
+ }
+*/
 const uploadImages = asyncHandler( async (req,res)=> {
     const { id } = req.params;
     validateMongodbId(id);
