@@ -6,7 +6,7 @@ const crypto = require('crypto');
 var userSchema = new mongoose.Schema({
     firstName:{
         type:String,
-        required:[true, 'First Name  must be required']
+        // required:[true, 'First Name  must be required']
     },
     lastName:{
         type:String,
@@ -14,8 +14,8 @@ var userSchema = new mongoose.Schema({
     },
     email:{
         type:String,
-        required:[true, 'email  must be required'],
-        unique:[true, 'please use unique email id'],
+        // required:[true, 'email  must be required'],
+        // unique:[true, 'please use unique email id'],
     },
     mobile:{
         type:String,
@@ -24,7 +24,7 @@ var userSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true, 'password  must be required'],
+        // required:[true, 'password  must be required'],
     },
     role: {
         type: String,
@@ -38,8 +38,8 @@ var userSchema = new mongoose.Schema({
         type: Array,
         dfault: [],
     },
-    address: { type: String, }, 
-    // address: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }], 
+    // address: { type: String, }, 
+    address: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }], 
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }], 
     refreshToken: { 
         type: String,

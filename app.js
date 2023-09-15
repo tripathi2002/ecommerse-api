@@ -26,20 +26,20 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'));
 
 app.get('/', (req,res)=>{
-    res.send("bye");
+    res.send("### Jai Shree Ram ###");
 });
 
-app.use('/api/user', authRouter);
-app.use('/api/product', productRouter);
-app.use('/api/blog', blogRouter);
-app.use('/api/brand', brandRouter);
-app.use('/api/coupon', couponRouter);
+app.use('/v3/api/user', authRouter);
+app.use('/v3/api/product', productRouter);
+app.use('/v3/api/blog', blogRouter);
+app.use('/v3/api/brand', brandRouter);
+app.use('/v3/api/coupon', couponRouter);
 
-app.use('/api/category/product', productCategoryRouter);
-app.use('/api/category/blog', blogCategoryRouter);
+app.use('/v3/api/category/product', productCategoryRouter);
+app.use('/v3/api/category/blog', blogCategoryRouter);
 
-app.use('/api/cart', cartRouter);
-app.use('/api/order', orderRouter);
+app.use('/v3/api/cart', cartRouter);
+app.use('/v3/api/order', orderRouter);
 
 app.use(notFound);
 app.use(errorHandler);

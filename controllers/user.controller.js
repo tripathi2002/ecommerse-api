@@ -11,7 +11,8 @@ const { validateMongodbId } = require('../utils/validateMongodbId');
  *body: {
     "email":"example@123",
     "password":"admin@123",
-    "firstName":"example123",
+    "firstName":"example",
+    "lastName":"123",
     "mobile":"7081229558"
  }
 */
