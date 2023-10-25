@@ -41,6 +41,7 @@ const addToCart = asyncHandler(async (req, res)=>{
             object.color = cart[i].color; 
             let getPrice = await Product.findById(cart[i]._id).select('price').exec();
             object.price = getPrice.price;
+            console.log(object.price);
             products.push(object);
         }
         let cartTotal = 0;

@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'));
 
+// GET:127.0.0.1:1000/ || GET: IP:PORT  BASE URL
 app.get('/', (req,res)=>{
     res.send("### Jai Shree Ram ###");
 });

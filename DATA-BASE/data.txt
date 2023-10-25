@@ -1,0 +1,522 @@
+Base Url ::GET: http://127.0.0.1:1000/
+Response::
+### Jai Shree Ram ###
+
+Register User ::POST: http://127.0.0.1:1000/v3/api/user/register 
+body: {
+    "email":"example@123",
+    "password":"admin@123",
+    "firstName":"example",
+    "lastName":"123",
+    "mobile":"7081229558"
+}
+Response:: 
+{
+  "newUser": {
+    "firstName": "example",
+    "lastName": "123",
+    "email": "example@123",
+    "mobile": "7081229558",
+    "password": "$2b$10$KlF2z8D5cgGnvVpd71o.w.goeFTwLa8otcKjJt15YsWbpuIV1iUl6",
+    "role": "user",
+    "isBlocked": false,
+    "cart": [],
+    "address": [],
+    "wishlist": [],
+    "_id": "6539117227267f7fc4629d8a",
+    "createdAt": "2023-10-25T13:00:34.063Z",
+    "updatedAt": "2023-10-25T13:00:34.063Z",
+    "__v": 0
+  }
+}
+---
+Login User ::POST: http://127.0.0.1:1000/v3/api/user/login 
+body:{
+    "email":"example@123",
+    "password":"admin@123"
+}
+Response:: 
+{
+  "_id": "6539117227267f7fc4629d8a",
+  "firstName": "example",
+  "lastName": "123",
+  "email": "example@123",
+  "mobile": "7081229558",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMTcyMjcyNjdmN2ZjNDYyOWQ4YSIsImlhdCI6MTY5ODIzODk2MywiZXhwIjoxNjk4MzI1MzYzfQ.yJ__idnNGGxE1Vsq3IDrO7g5NLK8GszGojIkcCWelH8"
+}
+---
+Register Admin ::POST: http://127.0.0.1:1000/v3/api/user/register 
+body:{
+    "email":"amtri2030@gmail.com",
+    "password":"admin@123",
+    "firstName":"Vibhu",
+    "lastName":"Tripathi",
+    "mobile":"7753854479",
+    "role":"admin"
+}
+Response::
+{
+  "newUser": {
+    "firstName": "Vibhu",
+    "lastName": "Tripathi",
+    "email": "amtri2030@gmail.com",
+    "mobile": "7753854479",
+    "password": "$2b$10$.mEru2H5DBl4L1maNHujVuMYTkDnGo0uAltYIeMyKEN5og6dAgZpK",
+    "role": "admin",
+    "isBlocked": false,
+    "cart": [],
+    "address": [],
+    "wishlist": [],
+    "_id": "653915eae4cbe15043028d4a",
+    "createdAt": "2023-10-25T13:19:38.173Z",
+    "updatedAt": "2023-10-25T13:19:38.173Z",
+    "__v": 0
+  }
+}
+---
+Login Admin ::POST: http://127.0.0.1:1000/v3/api/user/admin-login
+body {
+    "email":"amtri2030@gmail.com",
+    "password":"admin@123"
+}
+Response: 
+{
+  "_id": "653915eae4cbe15043028d4a",
+  "firstName": "Vibhu",
+  "lastName": "Tripathi",
+  "email": "amtri2030@gmail.com",
+  "mobile": "7753854479",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxNWVhZTRjYmUxNTA0MzAyOGQ0YSIsImlhdCI6MTY5ODI0MDk1MCwiZXhwIjoxNjk4MzI3MzUwfQ.CtT4-mlGa5cDlHtOltkfuL5n36c6qBXp7Dl_qKEEwYE"
+}
+
+
+-----
+Create Category::POST:http://127.0.0.1:1000/v3/api/category/product
+headers: 
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMmYyMjcyNjdmN2ZjNDYyOWQ5MSIsImlhdCI6MTY5ODIzOTMwMiwiZXhwIjoxNjk4MzI1NzAyfQ.Pp_363kRAtUDTt33ss2AWaWx9lz6GeyzctgYzkwGPKY"
+body: {
+    "title": "smartphones"
+}
+Response::
+{
+  "title": "smartphones",
+  "_id": "653919f7178feffa15c6980c",
+  "createdAt": "2023-10-25T13:36:55.889Z",
+  "updatedAt": "2023-10-25T13:36:55.889Z",
+  "__v": 0
+}
+-----
+Create Brand:: POST: http://127.0.0.1:1000/v3/api/brand 
+headers: 
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxMmYyMjcyNjdmN2ZjNDYyOWQ5MSIsImlhdCI6MTY5ODIzOTMwMiwiZXhwIjoxNjk4MzI1NzAyfQ.Pp_363kRAtUDTt33ss2AWaWx9lz6GeyzctgYzkwGPKY" 
+body: {
+    "title": "Apple"
+    }
+Response::
+{
+  "title": "Apple",
+  "_id": "65391b8d178feffa15c69810",
+  "createdAt": "2023-10-25T13:43:41.896Z",
+  "updatedAt": "2023-10-25T13:43:41.896Z",
+  "__v": 0
+}
+-----
+Product Routes-
+Create Product ::POST: http://127.0.0.1:1000/v3/api/product
+headers: "token :'Bearrer '"
+body: {
+    "title":"iPhone 15 Plus",
+    "description": "The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface.",
+    "price":500, 
+    "quantity": 120,
+    "category":"653919f7178feffa15c6980c",
+    "color":"Black",
+    "brand":"65391b8d178feffa15c69810"
+}
+Response::
+{
+  "title": "iPhone 15 Plus",
+  "slug": "iphone-15-plus",
+  "description": "The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface.",
+  "price": 500,
+  "category": "653919f7178feffa15c6980c",
+  "quantity": 120,
+  "sold": 0,
+  "images": [],
+  "color": "Black",
+  "brand": "65391b8d178feffa15c69810",
+  "totalrating": 0,
+  "_id": "65391e01178feffa15c69818",
+  "ratings": [],
+  "createdAt": "2023-10-25T13:54:09.450Z",
+  "updatedAt": "2023-10-25T13:54:09.450Z",
+  "__v": 0
+}
+-----
+Upload Product Images::PUT:http://127.0.0.1:1000/v3/api/product/upload/:id
+url::PUT:http://127.0.0.1:1000/v3/api/product/upload/65391e01178feffa15c69818
+headers: "token :'Bearrer '"
+FILES: {
+    images[5]
+}
+Response: 
+{
+  "_id": "65391e01178feffa15c69818",
+  "title": "iPhone 15 Plus",
+  "slug": "iphone-15-plus",
+  "description": "The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface.",
+  "price": 500,
+  "category": "653919f7178feffa15c6980c",
+  "quantity": 120,
+  "sold": 0,
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242686/bn9krjg5xishqdwsye0g.jpg"
+    },
+    {
+      "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242688/fpn52vgfcs6ny01ite7l.jpg"
+    },
+    {
+      "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242689/isgrdyxrdqevewkdh5io.jpg"
+    },
+    {
+      "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242691/qmqmaqg7g2x7priemkpc.jpg"
+    },
+    {
+      "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242693/acfvjj16wvbaosmof2zs.jpg"
+    }
+  ],
+  "color": "Black",
+  "brand": "65391b8d178feffa15c69810",
+  "totalrating": 0,
+  "ratings": [],
+  "createdAt": "2023-10-25T13:54:09.450Z",
+  "updatedAt": "2023-10-25T14:04:53.002Z",
+  "__v": 0
+}
+-----
+
+Get All Products ::GET:http://127.0.0.1:1000/v3/api/product
+Response::
+{
+  "count": 1,
+  "product": [
+    {
+      "_id": "65391e01178feffa15c69818",
+      "title": "iPhone 15 Plus",
+      "slug": "iphone-15-plus",
+      "description": "The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface.",
+      "price": 500,
+      "category": {
+        "_id": "653919f7178feffa15c6980c",
+        "title": "smartphones",
+        "createdAt": "2023-10-25T13:36:55.889Z",
+        "updatedAt": "2023-10-25T13:36:55.889Z",
+        "__v": 0
+      },
+      "quantity": 120,
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242686/bn9krjg5xishqdwsye0g.jpg"
+        },
+        {
+          "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242688/fpn52vgfcs6ny01ite7l.jpg"
+        },
+        {
+          "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242689/isgrdyxrdqevewkdh5io.jpg"
+        },
+        {
+          "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242691/qmqmaqg7g2x7priemkpc.jpg"
+        },
+        {
+          "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242693/acfvjj16wvbaosmof2zs.jpg"
+        }
+      ],
+      "color": "Black",
+      "brand": {
+        "_id": "65391b8d178feffa15c69810",
+        "title": "Apple",
+        "createdAt": "2023-10-25T13:43:41.896Z",
+        "updatedAt": "2023-10-25T13:43:41.896Z",
+        "__v": 0
+      },
+      "totalrating": 0,
+      "ratings": [],
+      "createdAt": "2023-10-25T13:54:09.450Z"
+    }
+  ]
+}
+-----
+Get All Products ::GET:http://127.0.0.1:1000/v3/api/product/:id
+url:http://127.0.0.1:1000/v3/api/product/65391e01178feffa15c69818 
+Response::
+{
+  "product": {
+    "_id": "65391e01178feffa15c69818",
+    "title": "iPhone 15 Plus",
+    "slug": "iphone-15-plus",
+    "description": "The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface.",
+    "price": 500,
+    "category": {
+      "_id": "653919f7178feffa15c6980c",
+      "title": "smartphones",
+      "createdAt": "2023-10-25T13:36:55.889Z",
+      "updatedAt": "2023-10-25T13:36:55.889Z",
+      "__v": 0
+    },
+    "quantity": 120,
+    "sold": 0,
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242686/bn9krjg5xishqdwsye0g.jpg"
+      },
+      {
+        "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242688/fpn52vgfcs6ny01ite7l.jpg"
+      },
+      {
+        "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242689/isgrdyxrdqevewkdh5io.jpg"
+      },
+      {
+        "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242691/qmqmaqg7g2x7priemkpc.jpg"
+      },
+      {
+        "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242693/acfvjj16wvbaosmof2zs.jpg"
+      }
+    ],
+    "color": "Black",
+    "brand": {
+      "_id": "65391b8d178feffa15c69810",
+      "title": "Apple",
+      "createdAt": "2023-10-25T13:43:41.896Z",
+      "updatedAt": "2023-10-25T13:43:41.896Z",
+      "__v": 0
+    },
+    "totalrating": 0,
+    "ratings": [],
+    "createdAt": "2023-10-25T13:54:09.450Z",
+    "updatedAt": "2023-10-25T14:04:53.002Z",
+    "__v": 0
+  }
+}
+
+Add product to wishlist:: PUT: http://127.0.0.1:1000/v3/api/product/wishlist 
+headers: "token :'Bearrer '"
+Response::
+{
+  "_id": "653915eae4cbe15043028d4a",
+  "firstName": "Vibhu",
+  "lastName": "Tripathi",
+  "email": "amtri2030@gmail.com",
+  "mobile": "7753854479",
+  "password": "$2b$10$.mEru2H5DBl4L1maNHujVuMYTkDnGo0uAltYIeMyKEN5og6dAgZpK",
+  "role": "admin",
+  "isBlocked": false,
+  "cart": [],
+  "address": [],
+  "wishlist": [],
+  "createdAt": "2023-10-25T13:19:38.173Z",
+  "updatedAt": "2023-10-25T14:22:38.031Z",
+  "__v": 0,
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxNWVhZTRjYmUxNTA0MzAyOGQ0YSIsImlhdCI6MTY5ODI0MDk1MCwiZXhwIjoxNjk4ODQ1NzUwfQ.E23uYQ13Fh2aCMNJbhiPGKuALsUgWwESNIiaUgnL1CI"
+}
+-----
+Get All Brand:: GET: http://127.0.0.1:1000/v3/api/brand 
+Response::
+{
+  "count": 1,
+  "brands": [
+    {
+      "_id": "65391b8d178feffa15c69810",
+      "title": "Apple",
+      "createdAt": "2023-10-25T13:43:41.896Z",
+      "updatedAt": "2023-10-25T13:43:41.896Z",
+      "__v": 0
+    }
+  ]
+}
+-----
+Get a Brand:: GET: http://127.0.0.1:1000/v3/api/brand/:id 
+url::http://127.0.0.1:1000/v3/api/brand/65391b8d178feffa15c69810
+Response::
+{
+  "_id": "65391b8d178feffa15c69810",
+  "title": "Apple",
+  "createdAt": "2023-10-25T13:43:41.896Z",
+  "updatedAt": "2023-10-25T13:43:41.896Z",
+  "__v": 0
+}
+----
+Get All Product Category::GET: http://127.0.0.1:1000/v3/api/category/product 
+Response::
+{
+  "count": 1,
+  "categories": [
+    {
+      "_id": "653919f7178feffa15c6980c",
+      "title": "smartphones",
+      "createdAt": "2023-10-25T13:36:55.889Z",
+      "updatedAt": "2023-10-25T13:36:55.889Z",
+      "__v": 0
+    }
+  ]
+}
+---
+Get a Product Category::GET: http://127.0.0.1:1000/v3/api/category/product/:id
+url::http://127.0.0.1:1000/v3/api/category/product/653919f7178feffa15c6980c
+Response::
+{
+  "_id": "653919f7178feffa15c6980c",
+  "title": "smartphones",
+  "createdAt": "2023-10-25T13:36:55.889Z",
+  "updatedAt": "2023-10-25T13:36:55.889Z",
+  "__v": 0
+}
+
+Add the product in cart::POST:http://127.0.0.1:1000/v3/api/cart 
+headers: "token :'Bearrer '"
+body: {
+    "cart":[
+        {
+            "_id":"65391e01178feffa15c69818", 
+            "count": 3,
+            "color": "Black"
+        }, 
+        {
+            "_id": "product-id",
+            "count": 2,
+            "color": "green"
+        }
+    ]
+}
+Response::
+{
+  "products": [
+    {
+      "product": "65391e01178feffa15c69818",
+      "count": 3,
+      "color": "Black",
+      "price": 500,
+      "_id": "65392e83318171b8ef89b83e"
+    }
+  ],
+  "cartTotal": 1500,
+  "orderby": "653915eae4cbe15043028d4a",
+  "_id": "65392e83318171b8ef89b83d",
+  "createdAt": "2023-10-25T15:04:35.808Z",
+  "updatedAt": "2023-10-25T15:04:35.808Z",
+  "__v": 0
+}
+-----
+Get the cart::GET:http://127.0.0.1:1000/v3/api/cart 
+headers: "token :'Bearrer '" 
+Response::
+{
+  "_id": "65392ab64f6dd89aad379cf6",
+  "products": [
+    {
+      "product": {
+        "_id": "65391e01178feffa15c69818",
+        "title": "iPhone 15 Plus",
+        "slug": "iphone-15-plus",
+        "description": "The iPhone is a smartphone made by Apple that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface.",
+        "price": 500,
+        "category": "653919f7178feffa15c6980c",
+        "quantity": 120,
+        "sold": 0,
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242686/bn9krjg5xishqdwsye0g.jpg"
+          },
+          {
+            "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242688/fpn52vgfcs6ny01ite7l.jpg"
+          },
+          {
+            "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242689/isgrdyxrdqevewkdh5io.jpg"
+          },
+          {
+            "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242691/qmqmaqg7g2x7priemkpc.jpg"
+          },
+          {
+            "url": "https://res.cloudinary.com/dg7hngysn/image/upload/v1698242693/acfvjj16wvbaosmof2zs.jpg"
+          }
+        ],
+        "color": "Black",
+        "brand": "65391b8d178feffa15c69810",
+        "totalrating": 0,
+        "ratings": [],
+        "createdAt": "2023-10-25T13:54:09.450Z",
+        "updatedAt": "2023-10-25T14:04:53.002Z",
+        "__v": 0
+      },
+      "count": 3,
+      "color": "Black",
+      "price": 500,
+      "_id": "65392ab64f6dd89aad379cf7"
+    }
+  ],
+  "cartTotal": 1500,
+  "orderby": "653915eae4cbe15043028d4a",
+  "createdAt": "2023-10-25T14:48:22.652Z",
+  "updatedAt": "2023-10-25T14:48:22.652Z",
+  "__v": 0
+}
+----
+Empty the Cart::DELETE:http://127.0.0.1:1000/v3/api/cart/empty-cart 
+headers: "token :'Bearrer '" 
+Response::
+{
+  "_id": "65392ab64f6dd89aad379cf6",
+  "products": [
+    {
+      "product": "65391e01178feffa15c69818",
+      "count": 3,
+      "color": "Black",
+      "price": 500,
+      "_id": "65392ab64f6dd89aad379cf7"
+    }
+  ],
+  "cartTotal": 1500,
+  "orderby": "653915eae4cbe15043028d4a",
+  "createdAt": "2023-10-25T14:48:22.652Z",
+  "updatedAt": "2023-10-25T14:48:22.652Z",
+  "__v": 0
+}
+-----
+Create Order::POST:http://127.0.0.1:1000/v3/api/order
+headers: "token :'Bearrer '"
+body: {
+    "COD":true,
+    "couponApplied": false
+}
+Response: 
+{
+  "message": "success"
+}
+-----
+Get Order Details::GET:http://127.0.0.1:1000/v3/api/order 
+headers: "token :'Bearrer '"
+Response::
+{
+  "_id": "65392eaa318171b8ef89b844",
+  "products": [
+    {
+      "product": "65391e01178feffa15c69818",
+      "count": 3,
+      "color": "Black",
+      "_id": "65392e83318171b8ef89b83e"
+    }
+  ],
+  "paymentIntent": {
+    "id": "n85ge2gclo5w0at5",
+    "method": "COD",
+    "amount": 1600,
+    "status": "Cash on Delivery",
+    "created": 1698246314723,
+    "currency": "rs"
+  },
+  "orderStatus": "Cash on Delivery",
+  "orderby": "653915eae4cbe15043028d4a",
+  "createdAt": "2023-10-25T15:05:14.725Z",
+  "updatedAt": "2023-10-25T15:05:14.725Z",
+  "__v": 0
+}

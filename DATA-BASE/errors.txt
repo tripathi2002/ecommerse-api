@@ -1,0 +1,25 @@
+---
+Register User ::POST: http://127.0.0.1:1000/v3/api/user/register 
+body: {
+    "email":"example@123",
+    "password":"admin@123",
+    "firstName":"example",
+    "lastName":"123",
+    "mobile":"7081229558"
+}
+Response:: 
+{
+  "message": "E11000 duplicate key error collection: digitic.users index: mobile_1 dup key: { mobile: \"7081229558\" }",
+  "stack": "MongoServerError: E11000 duplicate key error collection: digitic.users index: mobile_1 dup key: { mobile: \"7081229558\" }\n    at D:\\project\\ecommerse-api\\node_modules\\mongodb\\lib\\operations\\insert.js:50:33\n    at D:\\project\\ecommerse-api\\node_modules\\mongodb\\lib\\operations\\command.js:84:64\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+}
+----
+Register User ::POST: http://127.0.0.1:1000/v3/api/user/admin-login
+body:{
+    "email":"example@123",
+    "password":"admin@123"
+}
+Response:: 
+{
+  "message": "you are not admin",
+  "stack": "Error: you are not admin\n    at D:\\project\\ecommerse-api\\controllers\\user.controller.js:82:41\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
+}
