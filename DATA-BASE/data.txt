@@ -81,12 +81,12 @@ body {
 }
 Response: 
 {
-  "_id": "653915eae4cbe15043028d4a",
+  "_id": "653b8d2b527bf1aaa594ca39",
   "firstName": "Vibhu",
   "lastName": "Tripathi",
   "email": "amtri2030@gmail.com",
   "mobile": "7753854479",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxNWVhZTRjYmUxNTA0MzAyOGQ0YSIsImlhdCI6MTY5ODI0MDk1MCwiZXhwIjoxNjk4MzI3MzUwfQ.CtT4-mlGa5cDlHtOltkfuL5n36c6qBXp7Dl_qKEEwYE"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2I4ZDJiNTI3YmYxYWFhNTk0Y2EzOSIsImlhdCI6MTY5ODQwMjEwNywiZXhwIjoxNjk4NDg4NTA3fQ.AtrWGfycHtepUv8GY0CSQfE1tvRmzYkqANbtKLavj3M"
 }
 
 
@@ -247,7 +247,7 @@ Response::
   ]
 }
 -----
-Get All Products ::GET:http://127.0.0.1:1000/v3/api/product/:id
+Get a Products ::GET:http://127.0.0.1:1000/v3/api/product/:id
 url:http://127.0.0.1:1000/v3/api/product/65391e01178feffa15c69818 
 Response::
 {
@@ -299,8 +299,11 @@ Response::
   }
 }
 
-Add product to wishlist:: PUT: http://127.0.0.1:1000/v3/api/product/wishlist 
+Add or remove product to wishlist:: PUT: http://127.0.0.1:1000/v3/api/product/wishlist 
 headers: "token :'Bearrer '"
+{
+  "prodId":"65391e01178feffa15c69818"
+}
 Response::
 {
   "_id": "653915eae4cbe15043028d4a",
@@ -313,9 +316,11 @@ Response::
   "isBlocked": false,
   "cart": [],
   "address": [],
-  "wishlist": [],
+  "wishlist": [
+    "65391e01178feffa15c69818"
+  ],
   "createdAt": "2023-10-25T13:19:38.173Z",
-  "updatedAt": "2023-10-25T14:22:38.031Z",
+  "updatedAt": "2023-10-25T17:34:09.393Z",
   "__v": 0,
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzkxNWVhZTRjYmUxNTA0MzAyOGQ0YSIsImlhdCI6MTY5ODI0MDk1MCwiZXhwIjoxNjk4ODQ1NzUwfQ.E23uYQ13Fh2aCMNJbhiPGKuALsUgWwESNIiaUgnL1CI"
 }
@@ -346,7 +351,8 @@ Response::
   "__v": 0
 }
 ----
-Get All Product Category::GET: http://127.0.0.1:1000/v3/api/category/product 
+Get All Product Category::GET: http://127.0.0.1:1000/v3/api/category/product  
+url:: --category/product?fields=-__v,-brand&limit=1&page=5&sort=-price,ratings
 Response::
 {
   "count": 1,
@@ -371,7 +377,7 @@ Response::
   "updatedAt": "2023-10-25T13:36:55.889Z",
   "__v": 0
 }
-
+------
 Add the product in cart::POST:http://127.0.0.1:1000/v3/api/cart 
 headers: "token :'Bearrer '"
 body: {
@@ -519,4 +525,8 @@ Response::
   "createdAt": "2023-10-25T15:05:14.725Z",
   "updatedAt": "2023-10-25T15:05:14.725Z",
   "__v": 0
-}
+} 
+
+
+----------------------- first stage completed -----------------
+

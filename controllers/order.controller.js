@@ -69,10 +69,18 @@ const getOrder = asyncHandler(async (req, res)=>{
     }
 });
 
+PUT:http://127.0.0.1:1000/v3/api/order/update-status/:id 
+/**body {
+    "status":"Processing"
+}
+*/
+/**
+ * enum: ['Not Processed','Cash on Delivery','Processing','Disptch','Cancelled','Delivered']
+ */
 const updateOrderStatus = asyncHandler( async(req, res)=>{
     const { status } = req.body;
     const { id } = req.params;
-    // validateMongodbId(_id);
+    validateMongodbId(id);
     try{
         const updatedOrderStatus = await Order.findByIdAndUpdate(id, {
             orderStatus: status,
@@ -88,6 +96,16 @@ const updateOrderStatus = asyncHandler( async(req, res)=>{
     }
 });
 
+/**GET: {{base_url}}/api/order/all */
+const getAllOrder = asyncHandler(async(req,res)=>{
+    try{
+        const orders = await Order.find();
+        res.json(orders);
+    }catch(err){
+        throw new Error(err);
+    }
+});
+
 module.exports = {
-    createOrder, getOrder, updateOrderStatus
+    createOrder, getOrder, updateOrderStatus, getAllOrder
 }

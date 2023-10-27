@@ -85,6 +85,8 @@ const getaProduct = asyncHandler(async (req, res) => {
 
 // Get all Product 
 /* GET:  http://127.0.0.1:1000/api/product
+/* url:  http://127.0.0.1:1000/api/product?sort=category,brand
+    * product?fields=-__v,-sold
 */
 const getAllProduct = asyncHandler(async (req, res) => {
     try {
@@ -93,12 +95,11 @@ const getAllProduct = asyncHandler(async (req, res) => {
         const excludeFields = ['page', 'sort', 'limit', 'fields'];
         excludeFields.forEach(el => delete queryObj[el]);
 
-
         let queryStr = JSON.stringify(queryObj);
 
         queryStr = queryStr.replace(/\b(gte|gt|lte|lte)\b/g, (match) => `$${match}`);
         queryStr = JSON.parse(queryStr);
-        console.log(queryStr);
+        // console.log(queryStr);
 
         // const products = await Product.find(queryStr);
         let query = Product.find(queryStr);
@@ -114,7 +115,7 @@ const getAllProduct = asyncHandler(async (req, res) => {
         // limiting the fields
         if (req.query.fields) {
             const fields = req.query.fields.split(',').join(' ');
-            console.log(fields);
+            // console.log(fields);
             query = query.select(fields);
         } else {
             query = query.select('-__v -updatedAt -sold');
@@ -133,7 +134,7 @@ const getAllProduct = asyncHandler(async (req, res) => {
 
         const product = await query;
         if (!product) throw new Error('Products not found!');
-        res.json({
+        return res.json({
             count: product.length,
             product
         });
