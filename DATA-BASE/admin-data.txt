@@ -364,7 +364,7 @@ Response::
   ]
 }
 
-Get a Products ::GET:http://127.0.0.1:1000/v3/api/product/:id
+Get a Product ::GET:http://127.0.0.1:1000/v3/api/product/:id
 url:http://127.0.0.1:1000/v3/api/product/653b9789a5f5655db2502879
 Response::
 {
@@ -568,8 +568,40 @@ Response:
   "message": "success"
 } 
 -----
-Get specific user Order Details::GET:http://127.0.0.1:1000/v3/api/order 
+Get specific user Order(all) Details::GET:http://127.0.0.1:1000/v3/api/order 
 headers: "token :'Bearrer '"
+Response::
+[
+  {
+    "_id": "653b9e315e73527749896fd6",
+    "products": [
+      {
+        "product": "653b9789a5f5655db2502879",
+        "count": 3,
+        "color": "Black",
+        "_id": "653b9d6d5e73527749896fc9"
+      },
+      {
+        "product": "653b9737a5f5655db2502872",
+        "count": 2,
+        "color": "green",
+        "_id": "653b9d6d5e73527749896fca"
+      }
+    ],
+    "paymentIntent": {
+      "status": "Processing"
+    },
+    "orderStatus": "Processing",
+    "orderby": "653b8d2b527bf1aaa594ca39",
+    "createdAt": "2023-10-27T11:25:37.709Z",
+    "updatedAt": "2023-10-27T11:58:07.583Z",
+    "__v": 0
+  }
+]
+-----
+Get order by id(order _id) for user::GET:http://127.0.0.1:1000/v3/api/order/:id
+headers: "token :'Bearrer '"
+url:http://127.0.0.1:1000/v3/api/order/653b9e315e73527749896fd6
 Response::
 {
   "_id": "653b9e315e73527749896fd6",
@@ -588,21 +620,50 @@ Response::
     }
   ],
   "paymentIntent": {
-    "id": "n85ge4islo8j1kpw",
-    "method": "COD",
-    "amount": 154097,
-    "status": "Cash on Delivery",
-    "created": 1698405937702,
-    "currency": "rs"
+    "status": "Processing"
   },
-  "orderStatus": "Cash on Delivery",
+  "orderStatus": "Processing",
   "orderby": "653b8d2b527bf1aaa594ca39",
   "createdAt": "2023-10-27T11:25:37.709Z",
-  "updatedAt": "2023-10-27T11:25:37.709Z",
+  "updatedAt": "2023-10-27T11:58:07.583Z",
   "__v": 0
 }
+-------
+Update Order Details::PUT:http://127.0.0.1:1000/v3/api/order/update-status/:id 
+headers: "token :'Bearrer '"
+* status = enum: ['Not Processed','Cash on Delivery','Processing','Disptch','Cancelled','Delivered']
+body: {
+    "status": "Processing"
+}
+Response::
+{
+  "_id": "653b9e315e73527749896fd6",
+  "products": [
+    {
+      "product": "653b9789a5f5655db2502879",
+      "count": 3,
+      "color": "Black",
+      "_id": "653b9d6d5e73527749896fc9"
+    },
+    {
+      "product": "653b9737a5f5655db2502872",
+      "count": 2,
+      "color": "green",
+      "_id": "653b9d6d5e73527749896fca"
+    }
+  ],
+  "paymentIntent": {
+    "status": "Processing"
+  },
+  "orderStatus": "Processing",
+  "orderby": "653b8d2b527bf1aaa594ca39",
+  "createdAt": "2023-10-27T11:25:37.709Z",
+  "updatedAt": "2023-10-27T11:58:07.583Z",
+  "__v": 0
+}
+
 -----
-Get all Order Details::GET:http://127.0.0.1:1000/v3/api/order/all 
+Get all Order Details::GET:http://127.0.0.1:1000/v3/api/order/list 
 headers: "token :'Bearrer '"
 Response::
 [
@@ -635,16 +696,12 @@ Response::
     "createdAt": "2023-10-27T11:25:37.709Z",
     "updatedAt": "2023-10-27T11:25:37.709Z",
     "__v": 0
-  }
+  },
 ]
-----
-Update Order Details::PUT:http://127.0.0.1:1000/v3/api/order/update-status/:id 
+
+Get a Order Details(order id)::GET:http://127.0.0.1:1000/v3/api/order/list/:id 
 headers: "token :'Bearrer '"
-* status = enum: ['Not Processed','Cash on Delivery','Processing','Disptch','Cancelled','Delivered']
-body: {
-    "status": "Processing"
-}
-Response::
+Response:: 
 {
   "_id": "653b9e315e73527749896fd6",
   "products": [
@@ -662,11 +719,36 @@ Response::
     }
   ],
   "paymentIntent": {
-    "status": "Processing"
+    "id": "n85ge4islo8j1kpw",
+    "method": "COD",
+    "amount": 154097,
+    "status": "Cash on Delivery",
+    "created": 1698405937702,
+    "currency": "rs"
   },
-  "orderStatus": "Processing",
+  "orderStatus": "Cash on Delivery",
   "orderby": "653b8d2b527bf1aaa594ca39",
   "createdAt": "2023-10-27T11:25:37.709Z",
-  "updatedAt": "2023-10-27T11:58:07.583Z",
+  "updatedAt": "2023-10-27T11:25:37.709Z",
+  "__v": 0
+}
+-----
+Get User ::GET:http://127.0.0.1:1000/v3/api/user/:id
+headers: "token :'Bearrer '"
+Response::
+{
+  "firstName": "Vibhu",
+  "lastName": "Tripathi",
+  "email": "amtri2030@gmail.com",
+  "mobile": "7753854479",
+  "password": "$2b$10$KoXT7TubJwdx6UdVvRhuTOiGO0hHSiGR9hvhC4Gmqn4yMT2jK9/IW",
+  "role": "admin",
+  "isBlocked": false,
+  "cart": [],
+  "address": [],
+  "wishlist": [],
+  "_id": "653b8d2b527bf1aaa594ca39",
+  "createdAt": "2023-10-27T10:12:59.874Z",
+  "updatedAt": "2023-10-27T10:12:59.874Z",
   "__v": 0
 }

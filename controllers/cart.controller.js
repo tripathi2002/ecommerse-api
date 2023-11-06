@@ -73,18 +73,45 @@ const getCart = asyncHandler(async(req,res)=>{
     }
 });
 
+/** GET: http://127.0.0.1:1000/api/cart/list */
+const getAllCart = asyncHandler(async(req,res)=>{
+    const { _id } = req.user;
+    validateMongodbId(_id);
+    try{
+        const cart = await Cart.find({ orderby: _id }).populate("products.product");
+        res.json(cart);
+    }catch(err){
+        throw new Error(err);
+    }
+});
+
 /** GET: http://127.0.0.1:1000/api/cart/empty-cart */
 const emptyCart = asyncHandler( async (req,res)=>{
     const { _id } = req.user;
     validateMongodbId(_id);
     try{
         const user = await User.findById(_id);
-        const cart = await Cart.findOneAndRemove({ orderby: user._id });
+        const cart = await Cart.deleteMany({ orderby: user._id });
         res.json(cart);
     }catch(err){
         throw new Error(err);
     }
 });
+
+/** GET: http://127.0.0.1:1000/api/cart/empty-cart/:id */
+const emptyItemCart =  asyncHandler( async (req,res)=>{
+    const { id } = req.params
+    const { _id } = req.user;
+    validateMongodbId(_id);
+    try{
+        const user = await User.findById(_id);
+        const cart = await Cart.findOneAndRemove({ orderby: user._id, _id:id});
+        res.json(cart);
+    }catch(err){
+        throw new Error(err);
+    }
+});
+ 
 
 const applyCoupon = asyncHandler(async (req, res)=>{
     const { _id } = req.user;
@@ -110,7 +137,7 @@ const applyCoupon = asyncHandler(async (req, res)=>{
 
 
 module.exports = {
-    addToCart,  getCart,
-    emptyCart,
+    addToCart,  getCart, getAllCart,
+    emptyCart, emptyItemCart,
     applyCoupon,
 }

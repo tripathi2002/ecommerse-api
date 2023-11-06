@@ -18,11 +18,11 @@ router.post('/register', createUser);
 router.post('/login', loginUser);
 router.post('/admin-login', loginAdmin);
 
-// router.get('/:id', getaUser);
-router.get('/allUser', getAllUser);
+router.get('/allUser', authMiddleware, isAdmin, getAllUser);
 router.get('/refresh', handleRefreshToken);
 router.get('/logout', logout);
 router.get('/wishlist', authMiddleware, getWishlist)
+router.get('/:id', authMiddleware, isAdmin, getaUser);
 
 router.get('/:id', authMiddleware, isAdmin, getaUser);
 
